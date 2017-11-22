@@ -1,21 +1,25 @@
 import React, {Component} from 'react'
 import Article from './Article'
 import PropTypes from 'prop-types'
+import OpenActiveCloseInactiveArticles from "../decorators/openActiveCloseInactiveArticles";
 
-export default class ArticleList extends Component {
+class ArticleList extends Component {
     static PropTypes = {
         articles: PropTypes.array.isRequired
     }
 
-    state = {
-        openArticleId: null
+    constructor(props){
+        super(props)
+        console.log(props.openArticleId)
+        // this.state.openArticleId=props.openArticleId
     }
 
     render() {
+
         const articleElements = this.props.articles.map((article, index) => <li key = {article.id}>
             <Article article = {article}
-                     isOpen = {this.state.openArticleId === article.id}
-                     toggleOpen = {this.toggleOpenArticle}
+                     isOpen = {this.props.openArticleId === article.id}
+                     toggleOpen = {this.props.toggleOpenArticle}
             />
         </li>)
         return (
@@ -30,6 +34,6 @@ export default class ArticleList extends Component {
         this.setState({ openArticleId })
     }
 */
-
-    toggleOpenArticle = openArticleId => this.setState({ openArticleId })
 }
+
+export default OpenActiveCloseInactiveArticles(ArticleList)
