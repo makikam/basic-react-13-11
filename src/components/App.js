@@ -1,5 +1,6 @@
 import React from 'react'
-import ArticleList from './ArticleList'
+//import ArticleList from './ArticleList'
+import ArticleList from './ArticleListExtended'
 
 function App({ articles }) {
     return (
