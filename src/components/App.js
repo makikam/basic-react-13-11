@@ -4,10 +4,11 @@ import ArticlesChart from './ArticlesChart'
 import UserForm from './UserForm'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
+import DatesFilter from './DatesFilter'
 
 class App extends Component {
     state = {
-        selected: null
+        selected: null,
     }
 
     handleSelect = selected => this.setState({ selected })
@@ -23,8 +24,10 @@ class App extends Component {
                 <h1>App name</h1>
                 <UserForm />
                 <Select options = {options} value = {this.state.selected} onChange = {this.handleSelect} multi />
+                <DatesFilter/>
                 <ArticleList articles = {articles} defaultOpenId = {articles[0].id}/>
                 <ArticlesChart articles = {articles} />
+
             </div>
         )
     }
