@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
+import CommentForm from './CommentForm'
 
 class CommentList extends Component {
     static propTypes = {
@@ -19,6 +20,7 @@ class CommentList extends Component {
             <div>
                 <button onClick={toggleOpen}>{text}</button>
                 {this.getBody()}
+
             </div>
         )
     }
@@ -36,6 +38,7 @@ class CommentList extends Component {
         return (
             <div>
                 {body}
+                <CommentForm/>
             </div>
         )
     }
