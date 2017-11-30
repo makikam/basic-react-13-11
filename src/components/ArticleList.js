@@ -40,15 +40,6 @@ ArticleList.propTypes = {
 }
 
 
- const x = () => {
-    const filteredArticlesIDs = state.articlesFilter.map((article) => article.value)
-    const {from, to} = state.dateRange
-    return articles.
-        filter(article => (from === null) || DateUtils.isDayAfter(new Date(article.date), from)).
-        filter(article => (to === null) || DateUtils.isDayBefore(new Date(article.date), to)).
-        filter(article => (filteredArticlesIDs.length === 0) || filteredArticlesIDs.includes(article.id))
-}
-
 const mapStateToProps = (state) => {
         const filteredArticlesIDs = state.articlesFilter.map((article) => article.value)
         const {from, to} = state.dateRange
