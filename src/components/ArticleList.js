@@ -7,17 +7,15 @@ import {DateUtils} from 'react-day-picker'
 
 class ArticleList extends Accordion {
     render() {
-        const {articles, dateRange, filteredArticles} = this.props
-        const filteredArticlesIDs = filteredArticles.map((article) => article.value)
+        const {articles, dateRange, articlesFilter, filteredArticles} = this.props
+
 
         if (!articles.length) return <h3>No Articles</h3>
 
-        /*жадный фильтр
-        filter(article => (dateRange.from === null) || DateUtils.isDayAfter(new Date(article.date), dateRange.from)).
-        filter(article => (dateRange.to === null) || DateUtils.isDayBefore(new Date(article.date), dateRange.to)).*/
-        const articleElements = articles.
-        filter(article => DateUtils.isDayInRange(new Date(article.date), dateRange)).
-        filter(article => (filteredArticlesIDs.length === 0) || filteredArticlesIDs.includes(article.id)).
+        // фильтр на строгое соответствие
+        // filter(article => DateUtils.isDayInRange(new Date(article.date), dateRange)).
+        console.log(typeof filteredArticles)
+        const articleElements = filteredArticles.
         map((article) => <li key={article.id}>
                                 <Article article={article}
                                          isOpen={article.id === this.state.openItemId}
@@ -41,7 +39,29 @@ ArticleList.propTypes = {
     articles: PropTypes.array.isRequired
 }
 
-export default connect(state => ({
-    articles: state.articles,
-    dateRange: state.dateRange,
-    filteredArticles: state.articlesFilter}))(ArticleList)
+
+ const x = () => {
+    const filteredArticlesIDs = state.articlesFilter.map((article) => article.value)
+    const {from, to} = state.dateRange
+    return articles.
+        filter(article => (from === null) || DateUtils.isDayAfter(new Date(article.date), from)).
+        filter(article => (to === null) || DateUtils.isDayBefore(new Date(article.date), to)).
+        filter(article => (filteredArticlesIDs.length === 0) || filteredArticlesIDs.includes(article.id))
+}
+
+const mapStateToProps = (state) => {
+        const filteredArticlesIDs = state.articlesFilter.map((article) => article.value)
+        const {from, to} = state.dateRange
+        const {articles} = state
+        return {
+            articles: state.articles,
+            dateRange: state.dateRange,
+            articlesFilter: state.articlesFilter,
+            filteredArticles: articles.
+                filter(article => (from === null) || DateUtils.isDayAfter(new Date(article.date), from)).
+                filter(article => (to === null) || DateUtils.isDayBefore(new Date(article.date), to)).
+                filter(article => (filteredArticlesIDs.length === 0) || filteredArticlesIDs.includes(article.id))}
+}
+
+
+export default connect(mapStateToProps)(ArticleList)
