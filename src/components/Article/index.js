@@ -1,6 +1,5 @@
-import React, {Component, PureComponent} from 'react'
+import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
-import {findDOMNode} from 'react-dom'
 import CommentList from '../CommentList'
 import PropTypes from 'prop-types'
 import CSSTransition from 'react-addons-css-transition-group'
@@ -26,6 +25,7 @@ class Article extends PureComponent {
             counter: 0
         }
     }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.defaultOpen !== this.props.defaultOpen) this.setState({
             isOpen: nextProps.defaultOpen
@@ -43,12 +43,13 @@ class Article extends PureComponent {
             counter: this.state.counter + 1
         })
     }
-/*
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return !Object.keys(nextProps).every(prop => this.props[prop] === nextProps[prop])
-    }
-*/
+    /*
+
+        shouldComponentUpdate(nextProps, nextState) {
+            return !Object.keys(nextProps).every(prop => this.props[prop] === nextProps[prop])
+        }
+    */
 
     render() {
         console.log('---', 'rendering article')
@@ -63,11 +64,12 @@ class Article extends PureComponent {
                              key = {this.state.counter}/>
             </div>
         )
+
         return (
             <div>
                 <h2>
                     {article.title}
-                    <button onClick={toggleOpen}>
+                    <button onClick = {toggleOpen}>
                         {isOpen ? 'close' : 'open'}
                     </button>
                     <button onClick = {this.handleDelete}>delete me</button>
@@ -94,4 +96,4 @@ class Article extends PureComponent {
 }
 
 
-export default connect(null, { deleteArticle })(Article)
+export default connect(null, {deleteArticle})(Article)
