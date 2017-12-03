@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import './style.css'
+import {connect} from 'react-redux'
+import {addCommentToArticle} from '../../AC'
 
 class CommentForm extends Component {
-    static propTypes = {
-    };
+    static propTypes = {};
 
     state = {
         user: '',
@@ -12,14 +13,14 @@ class CommentForm extends Component {
 
     render() {
         return (
-            <form onSubmit = {this.handleSubmit}>
-                user: <input value = {this.state.user}
-                             onChange = {this.handleChange('user')}
-                             className = {this.getClassName('user')} />
-                comment: <textarea value = {this.state.text}
-                                onChange = {this.handleChange('text')}
-                                className = {this.getClassName('text')} />
-                <input type = "submit" value = "submit" disabled = {!this.isValidForm()}/>
+            <form onSubmit={this.handleSubmit}>
+                user: <input value={this.state.user}
+                             onChange={this.handleChange('user')}
+                             className={this.getClassName('user')}/>
+                comment: <textarea value={this.state.text}
+                                   onChange={this.handleChange('text')}
+                                   className={this.getClassName('text')}/>
+                <input type="submit" value="submit" disabled={!this.isValidForm()}/>
             </form>
         )
     }
@@ -30,6 +31,9 @@ class CommentForm extends Component {
             user: '',
             text: ''
         })
+        const {user, text} = this.state
+        console.log(`in submit`)
+        this.props.addCommentHandler({user, text})
     }
 
     isValidForm = () => ['user', 'text'].every(this.isValidField)
@@ -59,3 +63,4 @@ const limits = {
 }
 
 export default CommentForm
+//export default connect(null, this.props.addCommentHandler)(CommentForm)

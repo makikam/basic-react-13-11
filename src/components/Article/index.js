@@ -58,10 +58,10 @@ class Article extends PureComponent {
         const {article, isOpen, toggleOpen} = this.props
         const body = isOpen && (
             <div>
-                <button onClick = {this.increment}>increment</button>
+                <button onClick={this.increment}>increment</button>
                 <section>{article.text}</section>
-                <CommentList comments = {article.comments}
-                             key = {this.state.counter}/>
+                <CommentList comments={article.comments} articleId={article.id}
+                             key={this.state.counter}/>
             </div>
         )
 
@@ -69,18 +69,18 @@ class Article extends PureComponent {
             <div>
                 <h2>
                     {article.title}
-                    <button onClick = {toggleOpen}>
+                    <button onClick={toggleOpen}>
                         {isOpen ? 'close' : 'open'}
                     </button>
-                    <button onClick = {this.handleDelete}>delete me</button>
+                    <button onClick={this.handleDelete}>delete me</button>
                 </h2>
                 <CSSTransition
-                    transitionName = 'article'
-                    transitionEnterTimeout = {500}
-                    transitionLeaveTimeout = {300}
-                    transitionAppearTimeout = {500}
+                    transitionName='article'
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}
+                    transitionAppearTimeout={500}
                     transitionAppear
-                    component = 'div'
+                    component='div'
                 >
                     {body}
                 </CSSTransition>

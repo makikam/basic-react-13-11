@@ -1,4 +1,4 @@
-import {DELETE_ARTICLE} from '../constants'
+import {ADD_ARTICLE_COMMENT, DELETE_ARTICLE} from '../constants'
 import {normalizedArticles as defaultArticles} from '../fixtures'
 
 /*const articlesMap = {}
@@ -17,7 +17,10 @@ export default (articlesState = articlesMap, action) => {
             const result = Object.assign({}, articlesMap)
             delete result[payload.id]
             return result
-            //return articlesState.filter(article => article.id !== payload.id)
+
+        case ADD_ARTICLE_COMMENT:
+            console.log(`in reducer`)
+            console.dir(action)
     }
 
     return articlesState

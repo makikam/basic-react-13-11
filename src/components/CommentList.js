@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import CommentForm from './CommentForm'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
+import {addCommentToArticle} from '../AC'
 
 class CommentList extends Component {
     static propTypes = {
@@ -24,23 +26,25 @@ class CommentList extends Component {
     }
 
     getBody() {
-        const {comments, isOpen} = this.props
+        const {comments, articleId, isOpen} = this.props
         if (!isOpen) return null
 
         const body = comments.length ? (
             <ul>
-                {comments.map(id => <li key = {id}><Comment id = {id} /></li>)}
+                {comments.map(id => <li key={id}><Comment id={id}/></li>)}
             </ul>
         ) : <h3>No comments yet</h3>
 
         return (
             <div>
                 {body}
-                <CommentForm />
+                <CommentForm parentId={articleId} addCommentHandler={this.addCommentHandler}/>
             </div>
         )
     }
+
+    addCommentHandler = comment => this.props.addCommentToArticle(this.props.articleId, comment)
 }
 
-
-export default toggleOpen(CommentList)
+export default connect(null, {addCommentToArticle: addCommentToArticle})(toggleOpen(CommentList))
+// export default toggleOpen(CommentList)
