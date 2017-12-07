@@ -14,12 +14,14 @@ export default (articlesState = articlesMap, action) => {
 
     switch (type) {
         case DELETE_ARTICLE:
-            const result = Object.assign({}, articlesMap)
-            delete result[payload.id]
-            return result
+            const withDeletedArticle = Object.assign({}, articlesMap)
+            delete withDeletedArticle[payload.id]
+            return withDeletedArticle
 
         case ADD_ARTICLE_COMMENT:
-            articlesState[payload.articleId].comments.push(payload.comment.id)
+            const addedComment = Object.assign({}, articlesState)
+            addedComment[payload.articleId].comments.push(payload.comment.id)
+            return addedComment
     }
 
     return articlesState
