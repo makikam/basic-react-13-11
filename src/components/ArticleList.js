@@ -8,7 +8,7 @@ import {filtratedArticlesSelector} from '../selectors'
 
 class ArticleList extends Accordion {
     render() {
-        console.log('---', 2)
+        console.log('--- rendering ArticleList', 2)
         const {articles} = this.props
         if (!Object.keys(articles).length) return <h3>No Articles</h3>
 
@@ -37,6 +37,8 @@ ArticleList.propTypes = {
 
 export default connect(state => {
     console.log('---', 0)
+    console.log(`in alc`)
+    console.log(state)
     return {
         articles: filtratedArticlesSelector(state)
     }

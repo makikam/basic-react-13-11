@@ -55,13 +55,15 @@ class Article extends PureComponent {
         console.log('---', 'rendering article')
         if (this.state.error) return <h1>{this.state.error}</h1>
 
+
         const {article, isOpen, toggleOpen} = this.props
         const body = isOpen && (
             <div>
                 <button onClick={this.increment}>increment</button>
                 <section>{article.text}</section>
-                <CommentList comments={article.comments} articleId={article.id}
-                             key={this.state.counter}/>
+                {/*<CommentList comments={article.comments} articleId={article.id}
+                             key={this.state.counter}/>*/}
+                <CommentList articleId={article.id} key={this.state.counter}/>
             </div>
         )
 

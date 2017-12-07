@@ -19,8 +19,7 @@ export default (articlesState = articlesMap, action) => {
             return result
 
         case ADD_ARTICLE_COMMENT:
-            console.log(`in reducer`)
-            console.dir(action)
+            articlesState[payload.articleId].comments.push(payload.comment.id)
     }
 
     return articlesState

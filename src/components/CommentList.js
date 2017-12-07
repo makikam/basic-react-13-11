@@ -5,6 +5,8 @@ import CommentForm from './CommentForm'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 import {addCommentToArticle} from '../AC'
+import {commentsByArticleIdSelector} from '../selectors'
+
 
 class CommentList extends Component {
     static propTypes = {
@@ -15,8 +17,10 @@ class CommentList extends Component {
     }
 
     render() {
+        console.log('rendering CommentList')
         const {isOpen, toggleOpen} = this.props
         const text = isOpen ? 'hide comments' : 'show comments'
+
         return (
             <div>
                 <button onClick={toggleOpen}>{text}</button>
@@ -26,12 +30,17 @@ class CommentList extends Component {
     }
 
     getBody() {
-        const {comments, articleId, isOpen} = this.props
+        /*console.log('props')
+        console.log(this.props)
+        console.log('comments')
+        console.log(this.props.comments)*/
+        // return
+        const {articleId, isOpen, comments} = this.props
         if (!isOpen) return null
 
         const body = comments.length ? (
             <ul>
-                {comments.map(id => <li key={id}><Comment id={id}/></li>)}
+                {comments.map(id => <li key={id.id}><Comment comment={id}/></li>)}
             </ul>
         ) : <h3>No comments yet</h3>
 
@@ -46,5 +55,11 @@ class CommentList extends Component {
     addCommentHandler = comment => this.props.addCommentToArticle(this.props.articleId, comment)
 }
 
-export default connect(null, {addCommentToArticle: addCommentToArticle})(toggleOpen(CommentList))
+const mapStateToProps = (state, props) => {
+    return {
+        comments: commentsByArticleIdSelector(state, props)
+    }
+}
+
+export default connect(mapStateToProps, {addCommentToArticle: addCommentToArticle})(toggleOpen(CommentList))
 // export default toggleOpen(CommentList)

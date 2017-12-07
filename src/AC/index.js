@@ -28,8 +28,6 @@ export function changeSelection(selected) {
 }
 
 export function addCommentToArticle(articleId, comment) {
-    console.log(`in AC`)
-    console.dir(this)
     return {
         type: ADD_ARTICLE_COMMENT,
         payload: {
