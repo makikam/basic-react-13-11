@@ -61,7 +61,6 @@ export function loadArticleById(id) {
             payload: { id }
         })
 
-        setTimeout(() => {
             fetch(`/api/article/${id}`)
                 .then(res => res.json())
                 .then(response => dispatch({
@@ -72,6 +71,5 @@ export function loadArticleById(id) {
                     type: LOAD_ARTICLE + FAIL,
                     payload: { error, id }
                 }))
-        }, 1000)
     }
 }
