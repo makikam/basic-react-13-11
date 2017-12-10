@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import CommentForm from './CommentForm'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
+import Loader from "./common/Loader";
 
 class CommentList extends Component {
     static propTypes = {
@@ -10,6 +11,13 @@ class CommentList extends Component {
         //from toggleOpen decorator
         isOpen: PropTypes.bool,
         toggleOpen: PropTypes.func
+    }
+
+
+    componentWillReceiveProps({isOpen, loadCommentsByArticleId, article}) {
+        const {commentsLoading, commentsLoaded, id} = article
+
+        if (isOpen && !commentsLoaded && !commentsLoading) loadCommentsByArticleId(id)
     }
 
     render() {
@@ -24,19 +32,20 @@ class CommentList extends Component {
     }
 
     getBody() {
-        const {article: { comments, id }, isOpen} = this.props
+        const {article: {id, comments, commentsLoaded}, isOpen} = this.props
         if (!isOpen) return null
+        if (!commentsLoaded) return <Loader/>
 
         const body = comments.length ? (
             <ul>
-                {comments.map(id => <li key = {id}><Comment id = {id} /></li>)}
+                {comments.map(id => <li key={id}><Comment id={id}/></li>)}
             </ul>
         ) : <h3>No comments yet</h3>
 
         return (
             <div>
                 {body}
-                <CommentForm articleId = {id} />
+                <CommentForm articleId={id}/>
             </div>
         )
     }

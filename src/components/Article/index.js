@@ -5,7 +5,7 @@ import CommentList from '../CommentList'
 import PropTypes from 'prop-types'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
-import {deleteArticle, loadArticleById} from '../../AC'
+import {deleteArticle, loadArticleById, loadCommentsByArticleId} from '../../AC'
 import Loader from '../common/Loader'
 
 class Article extends PureComponent {
@@ -86,7 +86,7 @@ class Article extends PureComponent {
             <div>
                 <button onClick = {this.increment}>increment</button>
                 <section>{article.text}</section>
-                <CommentList article = {article}
+                <CommentList article = {article} loadCommentsByArticleId={this.props.loadCommentsByArticleId}
                              key = {this.state.counter}/>
             </div>
         )
@@ -99,4 +99,4 @@ class Article extends PureComponent {
 }
 
 
-export default connect(null, { deleteArticle, loadArticleById })(Article)
+export default connect(null, { deleteArticle, loadArticleById, loadCommentsByArticleId })(Article)
