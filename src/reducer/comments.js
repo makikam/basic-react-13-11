@@ -14,7 +14,7 @@ export default (state = new CommentRecord(), action) => {
 
     switch (type) {
         case LOAD_COMMENTS_FOR_ARTICLE + SUCCESS:
-            return arrToImmutableMap(response, CommentRecord).mergeWith(state)
+            return arrToImmutableMap(response, CommentRecord).merge(state)
 
         case ADD_COMMENT:
             return state.set(randomId, new CommentRecord(payload.comment))
