@@ -1,13 +1,21 @@
 import React, {Component} from 'react'
-import CommentsPageList from '../CommentsPageList'
+import FlatCommentsList from '../FlatCommentsList'
+import {Route, NavLink} from 'react-router-dom'
 
 
 class CommentsPage extends Component {
+    render() {
+        const {id} = this.props.match.params
+        return (
+            <div>
+                <h1>Comments Page List</h1>
+                <h2>{id}</h2>
+                <FlatCommentsList page={id} commentsPerPage={5}/>
 
-    render(){
-        return <h1>Comments Page List</h1>
+
+            </div>
+        )
     }
-
 }
 
 export default CommentsPage

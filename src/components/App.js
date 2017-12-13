@@ -22,7 +22,7 @@ class App extends Component {
                     <Route path="/counter" component={Counter} strict exact/>
                     <Route path="/filters" component={Filters}/>
                     <Route path="/articles" component={ArticlesPage}/>
-                    <Route path="/comments" component={CommentsPage}/>
+                    <Route path={`/comments/:id`} component={CommentsPage}/>
                 </Switch>
             </div>
         )
