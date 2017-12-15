@@ -7,15 +7,18 @@ import UserForm from './UserForm'
 import Filters from './Filters'
 import Counter from './Counter'
 import Menu, {MenuItem} from './Menu'
+import {dict} from './dict'
 
 class App extends Component {
     static childContextTypes = {
-        username: PropTypes.string
+        username: PropTypes.string,
+        dict: PropTypes.object
     }
 
     getChildContext() {
         return {
-            username: this.state.user
+            username: this.state.user,
+            dict: dict.en
         }
     }
 

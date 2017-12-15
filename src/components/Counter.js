@@ -4,15 +4,15 @@ import {connect} from 'react-redux'
 import {increment} from '../AC'
 
 class Counter extends Component {
-    static propTypes = {
-
+    static contextTypes = {
+        dict: PropTypes.object
     };
 
     render() {
         return (
             <div>
                 <h1>{this.props.count}</h1>
-                <button onClick = {this.onClick}>Increment me</button>
+                <button onClick = {this.onClick}>{this.context.dict.incrementMe}</button>
             </div>
         )
     }

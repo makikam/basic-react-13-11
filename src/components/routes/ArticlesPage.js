@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import {Route} from 'react-router-dom'
 import ArticleList from '../ArticleList'
 import Article from '../Article'
+import PropTypes from 'prop-types'
 
 class ArticlesPage extends Component {
-    static propTypes = {
+    static contextTypes = {
+        dict: PropTypes.object
 
     };
 
@@ -19,7 +21,7 @@ class ArticlesPage extends Component {
     }
 
     getArticle = ({ match }) => {
-        if (!match) return <h1>Please select article</h1>
+        if (!match) return <h1>{this.context.dict.selectArticle}</h1>
         console.log('---', 3)
         return <Article id={match.params.id} isOpen key={match.params.id} />
     }

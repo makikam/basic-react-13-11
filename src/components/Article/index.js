@@ -9,7 +9,12 @@ import {deleteArticle, loadArticleById} from '../../AC'
 import Loader from '../common/Loader'
 import {articleSelector} from '../../selectors'
 
+
 class Article extends Component {
+    static contextTypes ={
+        dict: PropTypes.object
+    }
+
     static propTypes = {
         id: PropTypes.string.isRequired,
         isOpen: PropTypes.bool,
@@ -37,7 +42,7 @@ class Article extends Component {
 
     componentDidCatch(err) {
         this.setState({
-            error: 'can`t display an article'
+            error: this.context.dict.cantDisplayArticle
         })
     }
 
@@ -54,6 +59,7 @@ class Article extends Component {
 */
 
     render() {
+        const {dict}=this.context
         console.log('---', 4)
         if (this.state.error) return <h1>{this.state.error}</h1>
 
@@ -65,9 +71,9 @@ class Article extends Component {
                 <h2>
                     {article.title}
                     <button onClick={toggleOpen}>
-                        {isOpen ? 'close' : 'open'}
+                        {isOpen ? dict.close : dict.open}
                     </button>
-                    <button onClick = {this.handleDelete}>delete me</button>
+                    <button onClick = {this.handleDelete}>{dict.deleteMe}</button>
                 </h2>
                 <CSSTransition
                     transitionName = 'article'
@@ -79,7 +85,7 @@ class Article extends Component {
                 >
                     {this.getBody()}
                 </CSSTransition>
-                <h3>creation date: {(new Date(article.date)).toDateString()}</h3>
+                <h3>{dict.creationDate}: {(new Date(article.date)).toDateString()}</h3>
             </div>
         )
     }
@@ -90,7 +96,7 @@ class Article extends Component {
         if (article.loading) return <Loader />
         return (
             <div>
-                <button onClick = {this.increment}>increment</button>
+                <button onClick = {this.increment}>{this.context.dict.increment}</button>
                 <section>{article.text}</section>
                 <CommentList article = {article}
                              key = {this.state.counter}/>

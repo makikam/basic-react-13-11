@@ -1,12 +1,14 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-function Loader(props) {
+function Loader({props}, context) {
     return (
-        <h2>Loading...</h2>
+        <h2>{context.dict.loading}</h2>
     )
 }
 
-Loader.propTypes = {
+Loader.contextTypes = {
+    dict: PropTypes.object
 }
 
 export default Loader

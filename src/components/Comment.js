@@ -3,12 +3,16 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {createCommentSelector} from '../selectors'
 
-function Comment({comment}) {
+function Comment({comment}, context) {
     return (
         <div>
-            {comment.text} <b>by {comment.user}</b>
+            {comment.text} <b>{context.dict.by} {comment.user}</b>
         </div>
     )
+}
+
+Comment.contextTypes ={
+    dict: PropTypes.object
 }
 
 Comment.propTypes = {

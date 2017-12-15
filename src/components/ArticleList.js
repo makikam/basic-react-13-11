@@ -8,14 +8,20 @@ import {filtratedArticlesSelector, articlesLoadingSelector} from '../selectors'
 import {loadAllArticles} from '../AC'
 
 class ArticleList extends Accordion {
+    static contextTypes = {
+        dict: PropTypes.object
+    }
+
     componentDidMount() {
         this.props.loadAllArticles()
     }
 
     render() {
         const {articles, loading} = this.props
-        if (loading) return <Loader />
-        if (!articles.length) return <h3>No Articles</h3>
+        if (loading) return <Loader/>
+        console.log(`--------------`)
+        console.log(this.context)
+        if (!articles.length) return <h3>{this.context.dict.noArticle}</h3>
         const articleElements = articles.map((article) => <li key={article.id}>
             <NavLink activeStyle={{color: 'red'}} to={`/articles/${article.id}`}>{article.title}</NavLink>
         </li>)
@@ -41,4 +47,4 @@ export default connect(state => {
         articles: filtratedArticlesSelector(state),
         loading: articlesLoadingSelector(state)
     }
-}, { loadAllArticles })(ArticleList)
+}, {loadAllArticles}, null, {pure: false})(ArticleList)
